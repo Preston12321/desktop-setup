@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Miscellaneous
+apt install unzip
 apt install net-tools
 apt install moreutils
 apt install xterm
@@ -26,12 +27,25 @@ apt install cmake
 
 # Dart
 apt install apt-transport-https
-sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
-sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
+wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+wget -O - https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list
 apt update
 apt install dart
 echo '# Add Dart to path variable' >> ~/.bashrc
 echo 'export PATH="$PATH:/usr/lib/dart/bin"' >> ~/.bashrc
+
+# Flutter
+git clone https://github.com/flutter/flutter.git -b stable ~/.flutter-manual-install
+echo '# Add Flutter to path variable' >> ~/.bashrc
+echo 'export PATH="$PATH:~/.flutter-manual-install/bin"' >> ~/.bashrc
+
+# Godot
+wget -O ./godot.zip https://downloads.tuxfamily.org/godotengine/3.2.1/Godot_v3.2.1-stable_x11.64.zip
+mkdir ~/.godot-manual-install
+unzip -d ~/.godot-manual-install ./godot.zip
+rm ./godot.zip
+echo '# Add Godot to path variable' >> ~/.bashrc
+echo 'export PATH="$PATH:~/.godot-manual-install"' >> ~/.bashrc
 
 # Mono
 apt install gnupg ca-certificates
@@ -55,8 +69,14 @@ snap install onlyoffice-desktopeditors
 snap install slack
 snap install spotify
 snap install vlc
+snap install zotero-snap
 
-# Enpass password manager
+# Google Chrome
+wget -O ./chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+apt install ./chrome.deb
+rm ./chrome.deb
+
+# Enpass
 echo "deb https://apt.enpass.io/ stable main" > /etc/apt/sources.list.d/enpass.list
 wget -O - https://apt.enpass.io/keys/enpass-linux.key | apt-key add -
 apt update
