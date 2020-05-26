@@ -82,12 +82,6 @@ wget -O - https://apt.enpass.io/keys/enpass-linux.key | apt-key add -
 apt update
 apt install enpass
 
-# Nord VPN
-wget -O ./nordvpn.deb https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
-apt install ./nordvpn.deb
-rm ./nordvpn.deb
-apt install nordvpn
-
 # Keybase
 wget -O ./keybase.deb https://prerelease.keybase.io/keybase_amd64.deb
 apt install ./keybase.deb
