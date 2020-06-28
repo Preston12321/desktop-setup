@@ -1,36 +1,24 @@
 #!/bin/sh
 
+APT="apt install -y"
+
 # Miscellaneous
-apt install unzip
-apt install net-tools
-apt install moreutils
-apt install xterm
-apt install vim
-apt install wine64
-apt install ttf-mscorefonts-installer
-apt install chrome-gnome-shell
+$APT unzip net-tools moreutils xterm vim wine64 ttf-mscorefonts-installer chrome-gnome-shell
 
 # Plata theme for GNOME
 add-apt-repository ppa:tista/plata-theme
 apt update
-apt install plata-theme
+$APT plata-theme
 
 # Development tools (apt)
-apt install build-essential
-apt install git
-apt install default-jre
-apt install adb
-apt install clang-format
-apt install python-pip
-apt install gitk
-apt install cmake
+$APT build-essential git default-jre adb clang-format python-pip gitk cmake
 
 # Dart
-apt install apt-transport-https
+$APT apt-transport-https
 wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 wget -O - https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list
 apt update
-apt install dart
+$APT dart
 echo '# Add Dart to path variable' >> ~/.bashrc
 echo 'export PATH="$PATH:/usr/lib/dart/bin"' >> ~/.bashrc
 
@@ -48,42 +36,31 @@ echo '# Add Godot to path variable' >> ~/.bashrc
 echo 'export PATH="$PATH:~/.godot-manual-install"' >> ~/.bashrc
 
 # Mono
-apt install gnupg ca-certificates
+$APT gnupg ca-certificates
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
 apt update
-apt install mono-complete
+$APT mono-complete
 
 # Development tools (snap)
-snap install code
-snap install hugo
-snap install postman
-snap install clion
-snap install android-studio
+snap install code hugo postman clion android-studio
 
 # Media/Productivity
-snap install discord
-snap install inkscape
-snap install gimp
-snap install onlyoffice-desktopeditors
-snap install slack
-snap install spotify
-snap install vlc
-snap install zotero-snap
+snap install discord inkscape gimp onlyoffice-desktopeditors slack spotify vlc zotero-snap
 
 # Google Chrome
 wget -O ./chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-apt install ./chrome.deb
+$APT ./chrome.deb
 rm ./chrome.deb
 
 # Enpass
 echo "deb https://apt.enpass.io/ stable main" > /etc/apt/sources.list.d/enpass.list
 wget -O - https://apt.enpass.io/keys/enpass-linux.key | apt-key add -
 apt update
-apt install enpass
+$APT enpass
 
 # Keybase
 wget -O ./keybase.deb https://prerelease.keybase.io/keybase_amd64.deb
-apt install ./keybase.deb
+$APT ./keybase.deb
 rm ./keybase.deb
 run_keybase &
