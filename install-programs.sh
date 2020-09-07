@@ -3,7 +3,7 @@
 APT="apt install -y"
 
 # Miscellaneous
-$APT unzip net-tools moreutils neovim wine64 ttf-mscorefonts-installer apt-transport-https curl fonts-powerline
+$APT unzip net-tools moreutils neovim wine64 ttf-mscorefonts-installer apt-transport-https curl fonts-powerline pass neofetch
 
 # Plata theme for GNOME
 add-apt-repository ppa:tista/plata-theme
@@ -61,7 +61,7 @@ echo 'export PATH="$PATH:~/.godot-manual-install"' >> ~/.bashrc
 # Mono
 $APT gnupg ca-certificates
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | tee /etc/apt/sources.list.d/mono-official-stable.list
 apt update
 $APT mono-complete
 
