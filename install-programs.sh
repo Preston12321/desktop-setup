@@ -3,7 +3,7 @@
 APT="apt install -y"
 
 # Miscellaneous
-$APT unzip net-tools moreutils xterm vim wine64 ttf-mscorefonts-installer chrome-gnome-shell
+$APT unzip net-tools moreutils neovim wine64 ttf-mscorefonts-installer apt-transport-https curl fonts-powerline
 
 # Plata theme for GNOME
 add-apt-repository ppa:tista/plata-theme
@@ -11,7 +11,30 @@ apt update
 $APT plata-theme
 
 # Development tools (apt)
-$APT build-essential git default-jre adb clang-format python-pip gitk cmake
+$APT build-essential git default-jre adb clang-format gitk golang
+
+# Rust toolchain
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup override set stable
+rustup update stable
+
+# Go-lang programs
+go get -u github.com/justjanne/powerline-go
+
+# Alacritty
+$APT cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev python3 gzip
+git clone https://github.com/alacritty/alacritty.git
+cd alacritty
+cargo build --release
+infocmp alacritty || tic -xe alacritty,alacritty-direct extra/alacritty.info # Install terminfo
+cp target/release/alacritty /usr/local/bin
+cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+desktop-file-install extra/linux/Alacritty.desktop
+update-desktop-database
+mkdir -p /usr/local/share/man/man1
+gzip -c extra/alacritty.man | tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
+cd ..
+rm -rf alacritty
 
 # Dart
 $APT apt-transport-https
@@ -43,21 +66,18 @@ apt update
 $APT mono-complete
 
 # Development tools (snap)
-snap install code hugo postman clion android-studio
+snap install --classic code
+snap install hugo postman clion android-studio
 
 # Media/Productivity
-snap install discord inkscape gimp onlyoffice-desktopeditors slack spotify vlc zotero-snap
+snap install --classic slack
+snap install discord inkscape gimp onlyoffice-desktopeditors spotify vlc zotero-snap
 
-# Google Chrome
-wget -O ./chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-$APT ./chrome.deb
-rm ./chrome.deb
-
-# Enpass
-echo "deb https://apt.enpass.io/ stable main" > /etc/apt/sources.list.d/enpass.list
-wget -O - https://apt.enpass.io/keys/enpass-linux.key | apt-key add -
+# Brave Browser
+curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | tee /etc/apt/sources.list.d/brave-browser-release.list
 apt update
-$APT enpass
+$APT brave-browser
 
 # Keybase
 wget -O ./keybase.deb https://prerelease.keybase.io/keybase_amd64.deb
