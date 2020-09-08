@@ -33,6 +33,7 @@ desktop-file-install extra/linux/Alacritty.desktop
 update-desktop-database
 mkdir -p /usr/local/share/man/man1
 gzip -c extra/alacritty.man | tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
+gsettings set org.gnome.desktop.default-applications.terminal exec 'alacritty'
 cd ..
 rm -rf alacritty
 
