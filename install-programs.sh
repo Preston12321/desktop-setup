@@ -1,9 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
 APT="apt install -y"
 
 # Miscellaneous
 $APT unzip net-tools moreutils neovim wine64 ttf-mscorefonts-installer apt-transport-https curl fonts-powerline pass neofetch
+
+# TODO: Install plugins for pass
+# TODO: Install spotifyd and spt
 
 # Plata theme for GNOME
 add-apt-repository ppa:tista/plata-theme
@@ -12,6 +15,13 @@ $APT plata-theme
 
 # Development tools (apt)
 $APT build-essential git default-jre adb clang-format gitk golang
+
+# NodeJS
+mkdir -p "$NVM_DIR"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash # Install NVM
+# TODO: Reload .bashrc to enable 'nvm' command
+# nvm install node
+# npm install -g yarn
 
 # Rust toolchain
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -36,6 +46,24 @@ gzip -c extra/alacritty.man | tee /usr/local/share/man/man1/alacritty.1.gz > /de
 gsettings set org.gnome.desktop.default-applications.terminal exec 'alacritty'
 cd ..
 rm -rf alacritty
+
+# Brave Browser
+curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | tee /etc/apt/sources.list.d/brave-browser-release.list
+apt update
+$APT brave-browser
+
+# Browserpass
+git clone https://github.com/browserpass/browserpass-native.git
+cd browserpass-native
+make BIN=browserpass-linux64 configure
+make BIN=browserpass-linux64 install
+make hosts-brave-user
+cd ..
+rm -rf browserpass-native
+git clone https://github.com/Preston12321/browserpass-extension.git $HOME/Desktop/browserpass-extension
+cd $HOME/Desktop/browserpass-extension
+make chromium 
 
 # Dart
 $APT apt-transport-https
@@ -73,12 +101,6 @@ snap install hugo postman clion android-studio
 # Media/Productivity
 snap install --classic slack
 snap install discord inkscape gimp onlyoffice-desktopeditors spotify vlc zotero-snap
-
-# Brave Browser
-curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
-echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | tee /etc/apt/sources.list.d/brave-browser-release.list
-apt update
-$APT brave-browser
 
 # Keybase
 wget -O ./keybase.deb https://prerelease.keybase.io/keybase_amd64.deb
