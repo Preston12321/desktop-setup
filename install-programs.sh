@@ -46,6 +46,10 @@ curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | apt-key 
 echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | tee /etc/apt/sources.list.d/brave-browser-release.list
 $APT_PROGRAMS+="brave-browser"
 
+# Nextcloud client and Nautilus integration
+add-apt-repository ppa:nextcloud-devs/client
+$APT_PROGRAMS+="nextcloud-desktop nautilus-nextcloud"
+
 # Pass extensions
 $APT_PROGRAMS+="pass-extension-update pass-extension-tail pass-extension-audit"
 
