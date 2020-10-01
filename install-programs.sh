@@ -53,9 +53,6 @@ $APT_PROGRAMS+="pass-extension-update pass-extension-tail pass-extension-audit"
 SNAP_PROGRAMS_CLASSIC+="slack"
 SNAP_PROGRAMS+="discord inkscape gimp onlyoffice-desktopeditors vlc zotero-snap"
 
-# Install golang programs
-go get -u github.com/justjanne/powerline-go
-
 # Install all the apt packages
 apt update
 $INSTALL "$APT_PROGRAMS"
@@ -63,6 +60,9 @@ $INSTALL "$APT_PROGRAMS"
 # Install all the snap packages
 snap install --classic "$SNAP_PROGRAMS_CLASSIC"
 snap install "$SNAP_PROGRAMS"
+
+# Install golang programs
+go get -u github.com/justjanne/powerline-go
 
 # Browserpass
 git clone https://github.com/browserpass/browserpass-native.git
