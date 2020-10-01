@@ -16,7 +16,7 @@ add-apt-repository ppa:tista/plata-theme
 $APT_PROGRAMS+="plata-theme"
 
 # Development tools
-$APT_PROGRAMS+="build-essential git default-jre default-jdk adb clangd clang-format gitk golang godot3"
+$APT_PROGRAMS+="build-essential git default-jre default-jdk adb clangd clang-format gitk python3 python3-pip golang godot3"
 SNAP_PROGRAMS_CLASSIC+="code flutter"
 SNAP_PROGRAMS+="hugo postman android-studio"
 
@@ -63,6 +63,17 @@ snap install "$SNAP_PROGRAMS"
 
 # Install golang programs
 go get -u github.com/justjanne/powerline-go
+
+# Install Python packages
+pip3 install pynvim
+
+# Install NodeJS packages
+npm i -g neovim
+
+# NeoVim plugins/extensions
+nvim -c 'PlugInstall|q'
+nvim -c 'CocInstall -sync coc-snippets coc-marketplace coc-explorer coc-eslint coc-html coc-java coc-go coc-flutter coc-python coc-rls coc-sh coc-clangd coc-texlab coc-emmet coc-vimlsp coc-css coc-yaml coc-json
+|q'
 
 # Browserpass
 git clone https://github.com/browserpass/browserpass-native.git
