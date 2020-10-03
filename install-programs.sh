@@ -8,6 +8,11 @@ SNAP_PROGRAMS_CLASSIC=""
 # Needed for adding PPAs/verifying signatures
 $INSTALL apt-transport-https gnupg ca-certificates curl
 
+if [ "$1" == "--desktop" ]; then
+    add-apt-repository ppa:tatokis/ckb-next
+    APT_PROGRAMS+="ckb-next"
+fi
+
 # Miscellaneous utilities
 $APT_PROGRAMS+="xclip unzip net-tools moreutils alacritty neovim wine64 ttf-mscorefonts-installer fonts-powerline pass neofetch"
 
@@ -51,6 +56,8 @@ add-apt-repository ppa:nextcloud-devs/client
 $APT_PROGRAMS+="nextcloud-desktop nautilus-nextcloud"
 
 # Pass extensions
+wget -qO - https://pkg.pujol.io/debian/gpgkey | sudo apt-key add -
+sudo echo 'deb https://pkg.pujol.io/debian/repo all main' > /etc/apt/sources.list.d/pkg.pujol.io.list
 $APT_PROGRAMS+="pass-extension-update pass-extension-tail pass-extension-audit"
 
 # Media/Productivity
