@@ -94,7 +94,8 @@ nvim -c 'CocInstall -sync coc-snippets coc-marketplace coc-explorer coc-eslint c
 git clone https://github.com/browserpass/browserpass-native.git
 cd browserpass-native
 make BIN=browserpass-linux64 configure
-make BIN=browserpass-linux64 install
+make browserpass-linux64
+sudo make BIN=browserpass-linux64 install
 make hosts-brave-user
 cd ..
 rm -rf browserpass-native
