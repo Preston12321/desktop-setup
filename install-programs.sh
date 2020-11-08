@@ -15,7 +15,7 @@ if [ "$1" == "--desktop" ]; then
 fi
 
 # Miscellaneous utilities
-APT_PROGRAMS+=( snap gnome-tweaks xclip unzip net-tools moreutils alacritty neovim wine64 ttf-mscorefonts-installer fonts-powerline pass neofetch )
+APT_PROGRAMS+=( snap gnome-tweaks xclip unzip net-tools moreutils alacritty neovim wine64 ttf-mscorefonts-installer fonts-powerline pass neofetch openconnect )
 
 # Plata theme for GNOME
 $ADD_REPO ppa:tista/plata-theme
