@@ -1,0 +1,13 @@
+apt:
+  - ppa: "ppa:system76/pop"
+  - ppa: "ppa:nextcloud-devs/client"
+  - keyUrl: "https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg"
+    keyFile: "/usr/share/keyrings/brave-browser-archive-keyring.gpg"
+    sourcesLine: "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"
+    sourcesFile: "/etc/apt/sources.list.d/brave-browser-release.list"
+  - keyServer: "hkp://keyserver.ubuntu.com:80"
+    recvKeys: "3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
+    sourcesLine: "deb https://download.mono-project.com/repo/ubuntu stable-focal main"
+    sourcesFile: "/etc/apt/sources.list.d/mono-official-stable.list"
+  - sourcesLine: "deb http://apt.pop-os.org/proprietary groovy main"
+    sourcesFile: "/etc/apt/sources.list.d/pop-os-apps.list"
