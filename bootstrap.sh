@@ -23,7 +23,7 @@ if [ "$PKG_MNGR" == "apt" ]; then
   sudo apt install -y build-essential apt-transport-https gnupg ca-certificates curl snapd git python3 python3-pip unzip
 else
   sudo pacman -Syyu # Update repos and upgrade packages
-  sudo pacman -S base-devel gnupg ca-certificates curl git python python-pip unzip
+  sudo pacman --noconfirm -S base-devel gnupg ca-certificates curl git python python-pip unzip
 
   # Install paru if not already present
   paru=$(which paru)
@@ -36,7 +36,7 @@ else
   fi
 
   # Install snapd
-  paru -S snapd 
+  paru --skipreview -S snapd 
 fi
 
 # Pull down dotfiles before installing other programs. Will ensure they

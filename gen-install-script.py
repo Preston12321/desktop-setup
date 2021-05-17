@@ -200,9 +200,11 @@ for i in range(len(waves)):
             SCRIPT += "apt install -y ./%d.deb\n" % i
 
     if pacman_programs:
-        SCRIPT += "pacman -S %s\n" % list_to_spaced_str(pacman_programs)
+        SCRIPT += "pacman --noconfirm -S %s\n" % list_to_spaced_str(
+            pacman_programs)
     if paru_programs:
-        SCRIPT += "paru -S %s\n" % list_to_spaced_str(paru_programs)
+        SCRIPT += "paru --skipreview -S %s\n" % list_to_spaced_str(
+            paru_programs)
 
     if snap_programs:
         SCRIPT += "snap install %s\n" % list_to_spaced_str(snap_programs)
