@@ -11,3 +11,4 @@ apt:
     sourcesFile: "/etc/apt/sources.list.d/mono-official-stable.list"
   - sourcesLine: "deb http://apt.pop-os.org/proprietary groovy main"
     sourcesFile: "/etc/apt/sources.list.d/pop-os-apps.list"
+pacman: []
