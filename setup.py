@@ -10,7 +10,7 @@ import requests
 import subprocess
 import copy
 
-from .packagemanager import AptPackageManager, PacmanPackageManager, SnapPackageManager
+from packagemanager import AptPackageManager, PacmanPackageManager, SnapPackageManager
 
 TEMP_DIR = "/tmp/desktop-setup"
 
