@@ -129,7 +129,7 @@ def platform_package_manager():
     exit(1)
 
 
-def load_definitions(package_manager):
+def load_definitions():
     package_list = []
     repository_dict = {}
 
