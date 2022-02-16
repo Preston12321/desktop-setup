@@ -19,7 +19,7 @@ sudo echo "Obtained root privileges"
 # Basic packages that we'll need for everything else
 if [ "$PKG_MNGR" == "apt" ]; then
   sudo apt update
-  sudo apt upgrade
+  sudo apt upgrade -y
   sudo apt install -y build-essential apt-transport-https gnupg ca-certificates curl snapd git python3 python3-pip unzip
 else
   sudo pacman -Syyu # Update repos and upgrade packages
@@ -52,7 +52,8 @@ git clone https://github.com/Preston12321/desktop-setup.git
 cd desktop-setup
 
 # Dependencies for install script generator
-pip3 install -r requirements.txt
+# Install as sudo since setup.py will also be run as sudo
+sudo pip3 install -r requirements.txt
 
 # Generate install script based off of YAML files
 sudo python3 setup.py || exit 1
