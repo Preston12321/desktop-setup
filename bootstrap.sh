@@ -55,9 +55,7 @@ cd desktop-setup
 pip3 install -r requirements.txt
 
 # Generate install script based off of YAML files
-python3 gen-install-script.py || exit 1
-
-sudo bash install-script.sh
+sudo python3 setup.py || exit 1
 
 cd ..
 rm -rf desktop-setup

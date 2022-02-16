@@ -1,318 +1,315 @@
 - name: pop-theme
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: pop-theme
-    - packageManager: paru
+    pacman:
       installName: pop-theme
-  postInstallSteps:
-    - "gsettings set org.gnome.desktop.interface gtk-theme Pop-dark"
-    - "gsettings set org.gnome.desktop.interface icon-theme Pop"
-    - "gsettings set org.gnome.desktop.interface cursor-theme Pop"
+      aur: true
+  postInstallScripts: ["post-install.sh"]
 # Only required on Arch because Ubuntu metapackage already includes it
 - name: pop-sound-theme
   requires:
     - pop-theme
   packageDefinitions:
-    - packageManager: paru
+    pacman:
       installName: pop-sound-theme-bin
-  postInstallSteps:
-    - "gsettings set org.gnome.desktop.sound theme-name Pop"
+      aur: true
+  postInstallScripts: ["post-install.sh"]
 # Only required on Arch because Ubuntu metapackage already includes it
 - name: pop-gnome-shell-theme
   requires:
     - pop-theme
   packageDefinitions:
-    - packageManager: paru
+    pacman:
       installName: pop-gnome-shell-theme-bin
-  postInstallSteps:
-    - "update-alternatives --install /usr/share/gnome-shell/gdm3-theme.gresource gdm3-theme.gresource /usr/share/gnome-shell/theme/Pop/gnome-shell-theme.gresource 20"
+      aur: true
+  postInstallScripts: ["post-install.sh"]
 - name: fira-mono-nerd-font
-  installSteps:
-    - "curl https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraMono.zip > FiraMono.zip"
-    - "unzip -d FiraMono FiraMono.zip"
-    - "rm FiraMono/Fura*"
-    - "rm FiraMono/*Windows\ Compatible.otf"
-    - "mkdir -p /usr/share/fonts/opentype/nerd/fira/"
-    - "cp *.otf /usr/share/fonts/opentype/nerd/fira/"
-    - "rm -rf FiraMono"
+  installScripts: ["install.sh"]
 - name: java-jre
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: default-jre
-    - packageManager: pacman
+    pacman:
       installName: jre-openjdk
 - name: java-jdk
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: default-jdk
-    - packageManager: pacman
+    pacman:
       installName: jdk-openjdk
 - name: android-sdk-platform-tools
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: android-sdk-platform-tools
-    - packageManager: paru
+    pacman:
       installName: android-sdk-platform-tools
+      aur: true
 - name: golang
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: golang
-    - packageManager: pacman
+    pacman:
       installName: go
 - name: gnome-tweaks
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: gnome-tweaks
-    - packageManager: pacman
+    pacman:
       installName: gnome-tweaks
 - name: xclip
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: xclip
-    - packageManager: pacman
+    pacman:
       installName: xclip
 - name: net-tools 
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: net-tools 
-    - packageManager: pacman
+    pacman:
       installName: net-tools 
 - name: alacritty 
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: alacritty 
-    - packageManager: pacman
+    pacman:
       installName: alacritty 
 - name: neovim 
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: neovim 
-    - packageManager: pacman
+    pacman:
       installName: neovim 
 - name: neovim-plugins
   requires:
     - node-neovim
     - neovim
-  installSteps:
-    - "nvim -c 'PlugInstall|q|q'"
-    - "nvim -c 'CocInstall -sync coc-snippets coc-marketplace coc-explorer coc-eslint coc-html coc-java coc-go coc-flutter coc-python coc-rls coc-sh coc-clangd coc-texlab coc-emmet coc-vimlsp coc-css coc-yaml coc-json|q|q'"
+  installScripts: ["install.sh"]
 - name: wine
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: wine
-    - packageManager: pacman
+    pacman:
       installName: wine
 - name: ms-fonts
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: ttf-mscorefonts-installer
-    - packageManager: paru
+    pacman:
       installName: ttf-ms-fonts
+      aur: true
 - name: powerline-fonts
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: fonts-powerline 
-    - packageManager: pacman
+    pacman:
       installName: powerline-fonts
 - name: neofetch 
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: neofetch 
-    - packageManager: pacman
+    pacman:
       installName: neofetch 
 - name: openconnect 
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: openconnect 
-    - packageManager: pacman
+    pacman:
       installName: openconnect 
 - name: vscode
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: code
-    - packageManager: pacman
+    pacman:
       installName: code
 - name: nextcloud-client
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: nextcloud-desktop
-    - packageManager: pacman
+    pacman:
       installName: nextcloud-client
 - name: nextcloud-nautilus-plugin
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: nautilus-nextcloud 
-    - packageManager: paru
+    pacman:
       installName: nautilus-nextcloud 
+      aur: true
 - name: brave-browser
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: brave-browser
-    - packageManager: paru
+    pacman:
       installName: brave-bin
+      aur: true
 - name: mono
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: mono-devel
-    - packageManager: pacman
+    pacman:
       installName: mono
 - name: rust
-  installSteps:
-    - "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
-    - "rustup override set stable"
-    - "rustup update stable"
+  installScripts: ["install.sh"]
 - name: nvm
-  installSteps:
-    - "mkdir -p $NVM_DIR"
-    - "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash"
+  installScripts: ["install.sh"]
 - name: node
   requires:
     - nvm
-  installSteps:
-    - ". $NVM_DIR/nvm.sh" # Load NVM
-    - "nvm install node"
+  installScripts: ["install.sh"]
 - name: yarn
   requires:
     - node
-  installSteps:
-    - "npm install -g yarn"
+  installScripts: ["install.sh"]
 - name: node-neovim
   requires:
     - node
-  installSteps:
-    - "npm install -g neovim"
+  installScripts: ["install.sh"]
 - name: virtualbox
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: virtualbox-qt
-    - packageManager: pacman
+    pacman:
       installName: virtualbox
 - name: virtualbox-extension-pack
   requires:
     - virtualbox
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: virtualbox-ext-pack
-    - packageManager: paru
+    pacman:
       installName: virtualbox-ext-oracle
+      aur: true
 - name: bitwarden
   packageDefinitions:
-    - packageManager: snap
+    snap:
       installName: bitwarden
-    - packageManager: paru
+    pacman:
       installName: bitwarden-bin
+      aur: true
 - name: keybase
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installUrl: "https://prerelease.keybase.io/keybase_amd64.deb"
-    - packageManager: paru
+    pacman:
       installName: keybase-bin
-  postInstallSteps:
-    - "run_keybase &"
+      aur: true
+  postInstallScripts: ["post-install.sh"]
 - name: flutter
   packageDefinitions:
-    - packageManager: snap-classic
+    snap:
       installName: flutter
-    - packageManager: paru
+      classic: true
+    pacman:
       installName: flutter
+      aur: true
 - name: android-studio
   packageDefinitions:
-    - packageManager: snap-classic
+    snap:
       installName: android-studio
-    - packageManager: paru
+      classic: true
+    pacman:
       installName: android-studio
+      aur: true
 - name: hugo
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: hugo
-    - packageManager: pacman
+    pacman:
       installName: hugo
 - name: postman
   packageDefinitions:
-    - packageManager: snap
+    snap:
       installName: postman
-    - packageManager: paru
+    pacman:
       installName: postman-bin
+      aur: true
 - name: signal
   packageDefinitions:
-    - packageManager: snap
+    snap:
       installName: signal-desktop
-    - packageManager: pacman
+    pacman:
       installName: signal-desktop
 - name: spotify
   packageDefinitions:
-    - packageManager: snap
+    snap:
       installName: spotify
-    - packageManager: paru
+    pacman:
       installName: spotify
+      aur: true
 - name: slack
   packageDefinitions:
-    - packageManager: snap-classic
+    snap:
       installName: slack
-    - packageManager: paru
+      classic: true
+    pacman:
       installName: slack-desktop
+      aur: true
 - name: discord
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: discord
-    - packageManager: pacman
+    pacman:
       installName: discord
 - name: zoom
   packageDefinitions:
-    - packageManager: snap
+    snap:
       installName: zoom-client
-    - packageManager: paru
+    pacman:
       installName: zoom
+      aur: true
 - name: inkscape
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: inkscape
-    - packageManager: pacman
+    pacman:
       installName: inkscape
 - name: libreoffice
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: libreoffice
-    - packageManager: pacman
+    pacman:
       installName: libreoffice-still
 - name: gimp
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: gimp
-    - packageManager: pacman
+    pacman:
       installName: gimp
 - name: onlyoffice
   packageDefinitions:
-    - packageManager: snap
+    snap:
       installName: onlyoffice-desktopeditors
 - name: vlc
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: vlc
-    - packageManager: pacman
+    pacman:
       installName: vlc
 - name: zotero
   packageDefinitions:
-    - packageManager: snap
+    snap:
       installName: zotero-snap
-    - packageManager: paru
+    pacman:
       installName: zotero
+      aur: true
 - name: rust
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: rustc
-    - packageManager: pacman
+    pacman:
       installName: rust
 # Only required on Ubuntu because Arch package already provides it
 - name: cargo
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: cargo
 - name: ckb-next 
   deviceTypes:
     - desktop
   packageDefinitions:
-    - packageManager: apt
+    apt:
       installName: ckb-next
-    - packageManager: paru
+    pacman:
       installName: ckb-next
+      aur: true
