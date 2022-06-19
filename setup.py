@@ -2,11 +2,8 @@
 
 import yaml
 import pyinputplus as pyip
-import json
-import shutil
 import os
 import sys
-import requests
 import subprocess
 import copy
 
