@@ -1,3 +1,7 @@
+- name: dconf-settings
+  requires:
+    - pop-theme
+  installScripts: ["install.sh"]
 - name: pop-theme
   packageDefinitions:
     apt:
