@@ -117,7 +117,9 @@ def resolve_dependencies(package_list):
 
 def run_scripts(scripts):
     for script in scripts:
-        subprocess.run(["/usr/bin/bash", script], check=True)
+        # Install scripts run from the directory in which they're located
+        cwd = os.path.dirname(script)
+        subprocess.run(["/usr/bin/bash", script], cwd=cwd, check=True)
 
 
 def platform_package_manager():
@@ -203,7 +205,8 @@ def packages_to_waves(package_list):
 
 
 def get_scripts_list(pkg, key):
-    return ["package-files/%s/%s" % (pkg["name"], s) for s in pkg[key]]
+    cwd = os.getcwd()
+    return ["%s/package-files/%s/%s" % (cwd, pkg["name"], s) for s in pkg[key]]
 
 
 def best_package_definition(package_definitions, package_managers):
