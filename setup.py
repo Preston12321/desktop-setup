@@ -100,7 +100,7 @@ def resolve_dependencies(package_list):
                     found_package = package
                     break
             if not found_package:
-                print("Error: Dependency '%s' of '%s' could not be found or won't be installed", file=sys.stderr)
+                print("Error: Dependency '%s' of '%s' could not be found or won't be installed" % (dependency, entry["name"]), file=sys.stderr)
                 exit(1)
 
             print("Found dependency '%s' of '%s'" % (dependency, entry["name"]))
