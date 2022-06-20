@@ -36,6 +36,7 @@ class AptPackageManager(PackageManager):
 
     def __init__(self):
         self.BIN_PATH = shutil.which("apt")
+        self.RELEASE = subprocess.run(["lsb_release", "-cs"], text=True, check=True).stdout
 
 
     @staticmethod
@@ -54,7 +55,7 @@ class AptPackageManager(PackageManager):
                 exit(1)
 
             with open(repo["sourcesFile"], "w") as file:
-                file.write(repo["sourcesLine"])
+                file.write(repo["sourcesLine"].replace("${RELEASE}", self.RELEASE))
 
             if "keyUrl" in repo and "keyFile" in repo:
                 subprocess.run(["curl", "--create-dirs", "-o", repo["keyFile"], repo["keyUrl"]], check=True)

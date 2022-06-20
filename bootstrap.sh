@@ -20,10 +20,10 @@ sudo echo "Obtained root privileges"
 if [ "$PKG_MNGR" == "apt" ]; then
   sudo apt update
   sudo apt upgrade -y
-  sudo apt install -y build-essential apt-transport-https gnupg ca-certificates curl snapd git python3 python3-pip unzip
+  sudo apt install -y build-essential apt-transport-https gnupg ca-certificates curl snapd git python3 python3-pip unzip lsb-core
 else
   sudo pacman -Syyu # Update repos and upgrade packages
-  sudo pacman --noconfirm -S base-devel gnupg ca-certificates curl git python python-pip unzip
+  sudo pacman --noconfirm -S base-devel gnupg ca-certificates curl git python python-pip unzip lsb-release
 
   # Install paru if not already present
   paru=$(which paru)
