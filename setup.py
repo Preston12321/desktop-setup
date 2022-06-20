@@ -28,7 +28,7 @@ def main():
     for pm in PKG_MANAGERS:
         pm.add_repositories(repository_dict.get(pm.NAME, []))
 
-    package_list = validate_and_match_packages(package_list)
+    package_list = validate_and_match_packages(package_list, DEVICE_TYPE)
     package_list = resolve_dependencies(package_list)
 
     # Detect circular dependencies
@@ -57,12 +57,12 @@ def get_device_type():
         numbered=True
     ).lower()
 
-def validate_and_match_packages(package_list):
+def validate_and_match_packages(package_list, device_type):
     matching_pkgs = []
 
     for entry in package_list:
         # Remove packages that won't be installed on this system because deviceType doesn't match
-        if DEVICE_TYPE not in entry.get("deviceTypes", [DEVICE_TYPE]):
+        if device_type not in entry.get("deviceTypes", [device_type]):
             continue
 
         if not "packageDefinitions" in entry:
