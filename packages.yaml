@@ -175,15 +175,15 @@
       installName: virtualbox-qt
     pacman:
       installName: virtualbox
-- name: virtualbox-extension-pack
-  requires:
-    - virtualbox
-  packageDefinitions:
-    apt:
-      installName: virtualbox-ext-pack
-    pacman:
-      installName: virtualbox-ext-oracle
-      aur: true
+# - name: virtualbox-extension-pack
+#   requires:
+#     - virtualbox
+#   packageDefinitions:
+#     apt:
+#       installName: virtualbox-ext-pack
+#     pacman:
+#       installName: virtualbox-ext-oracle
+#       aur: true
 - name: bitwarden
   packageDefinitions:
     snap:
