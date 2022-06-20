@@ -53,6 +53,7 @@ cd desktop-setup
 
 # Dependencies for install script generator
 # Install as sudo since setup.py will also be run as sudo
+# TODO: Use a venv instead
 sudo pip3 install -r requirements.txt
 
 # Generate install script based off of YAML files

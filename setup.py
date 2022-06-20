@@ -42,7 +42,7 @@ def main():
     for wave in packages_to_waves(package_list):
         wave_details = prepare_wave(wave, PKG_MANAGERS)
 
-        run_scripts(wave_details["install_script"])
+        run_scripts(wave_details["install_scripts"])
 
         for pm in PKG_MANAGERS:
             pm.install_packages(wave_details[pm.NAME])
@@ -60,8 +60,12 @@ def get_device_type():
 def validate_and_match_packages(package_list, device_type, pkg_managers):
     matching_pkgs = []
 
+    # TODO: Enable message at INFO level when logging is implemented
+    # print("Available system package managers: " + str({pm.NAME for pm in pkg_managers}))
+
     for entry in package_list:
         # Remove packages that won't be installed on this system because deviceType doesn't match
+        # If deviceType wasn't specified, match by default
         if device_type not in entry.get("deviceTypes", [device_type]):
             continue
 
@@ -77,7 +81,7 @@ def validate_and_match_packages(package_list, device_type, pkg_managers):
             exit(1)
 
         # Take intersection of available package managers and managers with packageDefinitions
-        matching_pms = [pm for pm in pkg_managers if pm in entry["packageDefinitions"].keys()]
+        matching_pms = [pm.NAME for pm in pkg_managers if pm.NAME in entry["packageDefinitions"].keys()]
 
         if matching_pms:
             matching_pkgs.append(entry)
@@ -103,7 +107,9 @@ def resolve_dependencies(package_list):
                 print("Error: Dependency '%s' of '%s' could not be found or won't be installed" % (dependency, entry["name"]), file=sys.stderr)
                 exit(1)
 
-            print("Found dependency '%s' of '%s'" % (dependency, entry["name"]))
+            # TODO: Enable message at DEBUG level when logging is implemented
+            # print("Found dependency '%s' of '%s'" % (dependency, entry["name"]))
+
             # Replace name string with reference to dependency
             i = packages.index(entry)
             j = entry["requires"].index(dependency)
@@ -114,9 +120,11 @@ def resolve_dependencies(package_list):
 
 def run_scripts(scripts):
     for script in scripts:
+        print("Run: %s" % script)
         # Install scripts run from the directory in which they're located
-        cwd = os.path.dirname(script)
-        subprocess.run(["/usr/bin/bash", script], cwd=cwd, check=True)
+        # TODO: Uncomment when ready for testing
+        # cwd = os.path.dirname(script)
+        # subprocess.run(["/usr/bin/bash", script], stdout=subprocess.DEVNULL, cwd=cwd, check=True)
 
 
 def platform_package_manager():
@@ -145,12 +153,12 @@ def load_definitions():
     return package_list, repository_dict
 
 
-def prepare_wave(packages, package_managers):
-    wave_details = {m: [] for m in package_managers}
-    wave_details["install_script"] = []
-    wave_details["post_install_script"] = []
+def prepare_wave(packages, pkg_managers):
+    wave_details = {pm.NAME: [] for pm in pkg_managers}
+    wave_details["install_scripts"] = []
+    wave_details["post_install_scripts"] = []
 
-    for package in waves[i]:
+    for package in packages:
         if "postInstallScripts" in package:
             wave_details["post_install_scripts"].extend(
                 get_scripts_list(package, "postInstallScripts")
@@ -162,8 +170,8 @@ def prepare_wave(packages, package_managers):
             )
             continue
 
-        pkg_manager, pkg_definition = best_package_definition(package["packageDefinitions"], package_managers)
-        wave_details[pkg_manager] = pkg_definition
+        pkg_manager, pkg_definition = best_package_definition(package["packageDefinitions"], pkg_managers)
+        wave_details[pkg_manager.NAME].append(pkg_definition)
 
     return wave_details
 
@@ -206,10 +214,10 @@ def get_scripts_list(pkg, key):
     return ["%s/package-files/%s/%s" % (cwd, pkg["name"], s) for s in pkg[key]]
 
 
-def best_package_definition(package_definitions, package_managers):
-    for manager in package_managers:
-        if manager in package_definitions.keys():
-            return manager, package_definitions[manager]
+def best_package_definition(pkg_definitions, pkg_managers):
+    for pm in pkg_managers:
+        if pm.NAME in pkg_definitions.keys():
+            return pm, pkg_definitions[pm.NAME]
     return None, None
 
 
