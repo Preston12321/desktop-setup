@@ -61,7 +61,7 @@ class AptPackageManager(PackageManagerBase):
     def install_from_names(self, name_list):
         if name_list:
             validate_package_names(name_list)
-            subprocess.run([self.BIN_PATH, "install", "-y", "--dry-run", *name_list], stdout=subprocess.DEVNULL, check=True)
+            subprocess.run([self.BIN_PATH, "install", "-y", *name_list], stdout=subprocess.DEVNULL, check=True)
 
 
     def install_from_urls(self, url_list):
@@ -84,7 +84,7 @@ class AptPackageManager(PackageManagerBase):
             deb_files.append(path)
 
         for deb in deb_files:
-            subprocess.run([self.BIN_PATH, "install", "-y", "--dry-run", deb], stdout=subprocess.DEVNULL, check=True)
+            subprocess.run([self.BIN_PATH, "install", "-y", deb], stdout=subprocess.DEVNULL, check=True)
 
         # TODO: Have this log a WARNING message if it fails, instead of throwing an exception
         # (Use the onerror argument of shutil.rmtree)
