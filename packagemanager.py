@@ -36,7 +36,9 @@ class AptPackageManager(PackageManager):
 
     def __init__(self):
         self.BIN_PATH = shutil.which("apt")
-        self.RELEASE = subprocess.run(["lsb_release", "-cs"], text=True, check=True).stdout
+
+        cp = subprocess.run(["lsb_release", "-cs"], text=True, stdout=subprocess.PIPE, check=True)
+        self.RELEASE = cp.stdout.replace("\n", "")
 
 
     @staticmethod
