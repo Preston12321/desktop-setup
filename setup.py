@@ -28,7 +28,7 @@ def main():
     for pm in PKG_MANAGERS:
         pm.add_repositories(repository_dict.get(pm.NAME, []))
 
-    package_list = validate_and_match_packages(package_list, DEVICE_TYPE)
+    package_list = validate_and_match_packages(package_list, DEVICE_TYPE, PKG_MANAGERS)
     package_list = resolve_dependencies(package_list)
 
     # Detect circular dependencies
@@ -57,7 +57,7 @@ def get_device_type():
         numbered=True
     ).lower()
 
-def validate_and_match_packages(package_list, device_type):
+def validate_and_match_packages(package_list, device_type, pkg_managers):
     matching_pkgs = []
 
     for entry in package_list:
@@ -77,7 +77,7 @@ def validate_and_match_packages(package_list, device_type):
             exit(1)
 
         # Take intersection of available package managers and managers with packageDefinitions
-        matching_pms = [pm for pm in PKG_MANAGERS if pm in entry["packageDefinitions"].keys()]
+        matching_pms = [pm for pm in pkg_managers if pm in entry["packageDefinitions"].keys()]
 
         if matching_pms:
             matching_pkgs.append(entry)
