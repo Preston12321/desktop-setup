@@ -38,12 +38,10 @@ class SnapPackageManager(PackageManagerBase):
     def install_normal_packages(self, package_names):
         if package_names:
             validate_package_names(package_names)
-            # TODO: Change to actual command when done debugging
-            subprocess.run([self.BIN_PATH, "install", *package_names], stdout=subprocess.DEVNULL, check=True)
+            run_package_manager([self.BIN_PATH, "install", *package_names])
 
 
     def install_classic_packages(self, package_names):
         if package_names:
             validate_package_names(package_names)
-            # TODO: Change to actual command when done debugging
-            subprocess.run([self.BIN_PATH, "install", "--classic", *package_names], stdout=subprocess.DEVNULL, check=True)
+            run_package_manager([self.BIN_PATH, "install", "--classic", *package_names])

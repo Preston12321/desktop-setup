@@ -40,10 +40,10 @@ class PacmanPackageManager(PackageManagerBase):
     def install_normal_packages(self, package_names):
         if package_names:
             validate_package_names(package_names)
-            subprocess.run([self.BIN_PATH, "--noconfirm", "-S", *package_names], stdout=subprocess.DEVNULL, check=True)
+            run_package_manager([self.BIN_PATH, "--noconfirm", "-S", *package_names])
 
 
     def install_aur_packages(self, package_names):
         if package_names:
             validate_package_names(package_names)
-            subprocess.run([self.PARU_BIN_PATH, "--skipreview", "-S", *package_names], stdout=subprocess.DEVNULL, check=True)
+            run_package_manager([self.PARU_BIN_PATH, "--skipreview", "-S", *package_names])

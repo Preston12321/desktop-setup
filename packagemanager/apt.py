@@ -5,7 +5,7 @@ import sys
 import tempfile
 
 from .base import PackageManagerBase
-from .util import validate_package_names
+from .util import validate_package_names, run_package_manager
 
 class AptPackageManager(PackageManagerBase):
     NAME = "apt"
@@ -25,7 +25,7 @@ class AptPackageManager(PackageManagerBase):
     def add_repositories(self, repo_list):
         for repo in repo_list:
             if "ppa" in repo:
-                subprocess.run(["apt-add-repository", "-y", "-P", repo["ppa"]], stdout=subprocess.DEVNULL, check=True)
+                run_package_manager(["apt-add-repository", "-y", "-P", repo["ppa"]])
                 continue
 
             if "sourcesLine" not in repo or "sourcesFile" not in repo:
@@ -36,11 +36,11 @@ class AptPackageManager(PackageManagerBase):
                 file.write(repo["sourcesLine"].replace("${RELEASE}", self.RELEASE))
 
             if "keyUrl" in repo and "keyFile" in repo:
-                subprocess.run(["curl", "--create-dirs", "-o", repo["keyFile"], repo["keyUrl"]], stdout=subprocess.DEVNULL, check=True)
+                run_package_manager(["curl", "--create-dirs", "-o", repo["keyFile"], repo["keyUrl"]])
             elif "keyServer" in repo and "recvKeys" in repo:
-                subprocess.run(["apt-key", "adv", "--keyserver", repo["keyServer"], "--recv-keys", repo["recvKeys"]], stdout=subprocess.DEVNULL, check=True)
+                run_package_manager(["apt-key", "adv", "--keyserver", repo["keyServer"], "--recv-keys", repo["recvKeys"]])
 
-        subprocess.run([self.BIN_PATH, "update"], stdout=subprocess.DEVNULL, check=True)
+        run_package_manager([self.BIN_PATH, "update"])
 
 
     def install_packages(self, package_list, deb_urls=False):
@@ -61,7 +61,7 @@ class AptPackageManager(PackageManagerBase):
     def install_from_names(self, name_list):
         if name_list:
             validate_package_names(name_list)
-            subprocess.run([self.BIN_PATH, "install", "-y", *name_list], stdout=subprocess.DEVNULL, check=True)
+            run_package_manager([self.BIN_PATH, "install", "-y", *name_list])
 
 
     def install_from_urls(self, url_list):
@@ -84,7 +84,7 @@ class AptPackageManager(PackageManagerBase):
             deb_files.append(path)
 
         for deb in deb_files:
-            subprocess.run([self.BIN_PATH, "install", "-y", deb], stdout=subprocess.DEVNULL, check=True)
+            run_package_manager([self.BIN_PATH, "install", "-y", deb])
 
         # TODO: Have this log a WARNING message if it fails, instead of throwing an exception
         # (Use the onerror argument of shutil.rmtree)
