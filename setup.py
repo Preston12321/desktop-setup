@@ -122,9 +122,8 @@ def run_scripts(scripts):
     for script in scripts:
         print("Run: %s" % script)
         # Install scripts run from the directory in which they're located
-        # TODO: Uncomment when ready for testing
-        # cwd = os.path.dirname(script)
-        # subprocess.run(["/usr/bin/bash", script], stdout=subprocess.DEVNULL, cwd=cwd, check=True)
+        cwd = os.path.dirname(script)
+        subprocess.run(["/usr/bin/bash", script], cwd=cwd, check=True)
 
 
 def platform_package_manager():
