@@ -20,10 +20,10 @@ sudo echo "Obtained root privileges"
 if [ "$PKG_MNGR" == "apt" ]; then
   sudo apt update
   sudo apt upgrade -y
-  sudo apt install -y build-essential apt-transport-https gnupg ca-certificates curl snapd git python3 unzip lsb-core
+  sudo apt install -y build-essential apt-transport-https gnupg ca-certificates curl snapd git python3 python3-pip python3-venv unzip lsb-core
 else
   sudo pacman -Syyu # Update repos and upgrade packages
-  sudo pacman --noconfirm -S base-devel gnupg ca-certificates curl git python unzip lsb-release
+  sudo pacman --noconfirm -S base-devel gnupg ca-certificates curl git python python-pip unzip lsb-release
 
   # Install paru if not already present
   paru=$(which paru)
@@ -52,7 +52,6 @@ git clone https://github.com/Preston12321/desktop-setup.git
 cd desktop-setup
 
 # Dependencies for install script generator
-python3 -m ensurepip --upgrade
 python3 -m venv ./venv
 source ./venv/bin/activate
 python3 -m pip install -r requirements.txt
