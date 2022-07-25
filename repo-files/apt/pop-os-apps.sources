@@ -1,0 +1,4 @@
+X-Repolib-Name: Pop_OS Applications
+Types: deb
+URIs: http://apt.pop-os.org/proprietary
+Components: main

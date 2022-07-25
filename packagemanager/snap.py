@@ -3,7 +3,7 @@ import subprocess
 import sys
 
 from .base import PackageManagerBase
-from .util import validate_package_names
+from .util import validate_package_names, pm_run
 
 class SnapPackageManager(PackageManagerBase):
     NAME = "snap"
@@ -17,7 +17,7 @@ class SnapPackageManager(PackageManagerBase):
         return bool(shutil.which("snap"))
 
 
-    def add_repositories(self, repo_list):
+    def add_sources(self, sources_data):
         # Snap doesn't support third-party repos -_-
         pass
 
@@ -38,10 +38,10 @@ class SnapPackageManager(PackageManagerBase):
     def install_normal_packages(self, package_names):
         if package_names:
             validate_package_names(package_names)
-            run_package_manager([self.BIN_PATH, "install", *package_names])
+            pm_run([self.BIN_PATH, "install", *package_names])
 
 
     def install_classic_packages(self, package_names):
         if package_names:
             validate_package_names(package_names)
-            run_package_manager([self.BIN_PATH, "install", "--classic", *package_names])
+            pm_run([self.BIN_PATH, "install", "--classic", *package_names])

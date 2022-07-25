@@ -1,18 +1,24 @@
 apt:
-  - ppa: "ppa:nextcloud-devs/client"
-  - keyUrl: "https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg"
-    keyFile: "/usr/share/keyrings/brave-browser-archive-keyring.gpg"
-    sourcesLine: "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"
-    sourcesFile: "/etc/apt/sources.list.d/brave-browser-release.list"
-  - keyServer: "hkp://keyserver.ubuntu.com:80"
-    recvKeys: "3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
-    sourcesLine: "deb https://download.mono-project.com/repo/ubuntu stable-bionic main"
-    sourcesFile: "/etc/apt/sources.list.d/mono-official-stable.list"
-  - keyServer: "keyserver.ubuntu.com"
-    recvKeys: "63C46DF0140D738961429F4E204DD8AEC33A7AFF"
-    sourcesLine: "deb http://apt.pop-os.org/release ${RELEASE} main"
-    sourcesFile: "/etc/apt/sources.list.d/pop-os-apps.list"
-  - keyServer: "keyserver.ubuntu.com"
-    recvKeys: "63C46DF0140D738961429F4E204DD8AEC33A7AFF"
-    sourcesLine: "deb http://apt.pop-os.org/proprietary ${RELEASE} main"
-    sourcesFile: "/etc/apt/sources.list.d/pop-os-apps.list"
+  keys:
+    - name: brave
+      url: "https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg"
+      filename: "brave-browser-archive-keyring.gpg"
+    - name: mono
+      server: "keyserver.ubuntu.com"
+      id: "3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
+      filename: "mono-project-keyring.gpg"
+    - name: pop-os
+      server: "keyserver.ubuntu.com"
+      id: "63C46DF0140D738961429F4E204DD8AEC33A7AFF"
+      filename: "pop-os-keyring.gpg"
+  sources_files:
+    - filename: "brave-browser-release.sources"
+      signingKey: brave
+    - filename: "mono-official-stable.sources"
+      signingKey: mono
+    - filename: "pop-os-release.sources"
+      signingKey: pop-os
+    - filename: "pop-os-apps.sources"
+      signingKey: pop-os
+  ppas:
+    - "ppa:nextcloud-devs/client"

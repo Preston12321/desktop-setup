@@ -1,0 +1,5 @@
+X-Repolib-Name: Mono Project Stable
+Types: deb
+URIs: https://download.mono-project.com/repo/ubuntu
+Suites: stable-bionic
+Components: main

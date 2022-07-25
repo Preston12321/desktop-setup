@@ -58,7 +58,7 @@ python3 -m pip install -r requirements.txt
 
 # Generate install script based off of YAML files
 # 'sudo -E' preserves environment variables, including $HOME and those sourced from .profile
-sudo -E python3 setup.py || exit 1
+sudo -E ./venv/bin/python3 setup.py || exit 1
 
 cd ..
 rm -rf desktop-setup

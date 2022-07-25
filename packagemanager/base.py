@@ -10,7 +10,7 @@ class PackageManagerBase(ABC):
 
 
     @abstractmethod
-    def add_repositories(self, repo_list):
+    def add_sources(self, sources_data):
         pass
 
 

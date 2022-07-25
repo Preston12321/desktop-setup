@@ -7,6 +7,6 @@ def validate_package_names(name_list):
             print("Error: Invalid package name '%s'" % name, file=sys.stderr)
 
 
-def run_package_manager(cmd_line_args):
+def pm_run(cmd_line_args):
     # TODO: Maybe do fancy logging & output stuff instead passing stdin/stderr through as-is
     return subprocess.run(cmd_line_args, check=True)

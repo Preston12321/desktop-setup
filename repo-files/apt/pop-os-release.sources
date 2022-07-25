@@ -1,0 +1,4 @@
+X-Repolib-Name: Pop_OS Realease Sources
+Types: deb deb-src
+URIs: http://apt.pop-os.org/release
+Components: main

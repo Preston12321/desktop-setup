@@ -15,8 +15,9 @@ class FlatpakPackageManager(PackageManagerBase):
         return bool(shutil.which("flatpak"))
 
 
-    def add_repositories(self, repo_list):
+    def add_sources(self, sources_data):
         pass
+
 
     def install_packages(self, package_list):
         pass
