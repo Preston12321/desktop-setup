@@ -26,7 +26,7 @@ def main():
     PKG_MANAGERS = [PKG_MANAGER, SnapPackageManager()]
 
     for pm in PKG_MANAGERS:
-        pm.add_repositories(repository_dict.get(pm.NAME, []))
+        pm.add_sources(repository_dict.get(pm.NAME, []))
 
     package_list = validate_and_match_packages(package_list, DEVICE_TYPE, PKG_MANAGERS)
     package_list = resolve_dependencies(package_list)

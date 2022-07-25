@@ -9,6 +9,8 @@ import tempfile
 from .base import PackageManagerBase
 from .util import validate_package_names, pm_run
 
+KEYRING_PATH = "/usr/share/keyrings"
+SOURCES_PATH = "/etc/apt/sources.list.d"
 
 def read_deb822_file(filepath):
     """
@@ -41,8 +43,6 @@ def write_deb822_file(filepath, data):
 
 class AptPackageManager(PackageManagerBase):
     NAME = "apt"
-    KEYRING_PATH = "/usr/share/keyrings"
-    SOURCES_PATH = "/etc/apt/sources.list.d"
 
     def __init__(self):
         self.BIN_PATH = shutil.which("apt-get")
